@@ -134,6 +134,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 }
             ?>
         </div>
+
+        <!-- Botão para limpar histórico -->
+        <a href="limpar-historico.php">
+            <button type="button">Limpar Histórico</button>
+        </a>
     </div>
 
 </body>
