@@ -1,10 +1,12 @@
-
 <?php
 // Inicializando o histórico
 session_start();
 if (!isset($_SESSION['historico'])) {
     $_SESSION['historico'] = [];
 }
+
+// Incluir o arquivo da operação de potência
+include 'funcionalidade-potencia.php';  // Corrigido o caminho do arquivo
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $num1 = floatval($_POST['num1']);
@@ -25,6 +27,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             break;
         case 'divisao':
             $resultado = ($num2 != 0) ? $num1 / $num2 : "Erro: Divisão por zero";
+            break;
+        case 'potencia':  // Nova operação
+            $resultado = calcularPotencia($num1, $num2);  // Aqui é onde a função é chamada
             break;
         default:
             $resultado = "Operação inválida";
@@ -104,7 +109,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
 
     <div class="calculadora">
-        <h2>Calculadora do Joao</h2>
+        <h2>Calculadora do João</h2>
 
         <form method="post">
             <input type="number" name="num1" step="any" placeholder="Número 1" required>
@@ -113,6 +118,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <option value="subtracao">Subtração (-)</option>
                 <option value="multiplicacao">Multiplicação (×)</option>
                 <option value="divisao">Divisão (÷)</option>
+                <option value="potencia">Potência (^) </option> <!-- Adicionando a operação de potência -->
             </select>
             <input type="number" name="num2" step="any" placeholder="Número 2" required>
             <button type="submit">Calcular</button>
